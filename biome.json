@@ -6,6 +6,15 @@
     "enabled": true,
     "useIgnoreFile": true
   },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "preset": "recommended",
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
   "linter": {
     "enabled": true
   },
