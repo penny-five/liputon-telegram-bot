@@ -1,0 +1,25 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "liputon-telegram-bot",
+  "compatibility_date": "2026-07-17",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "src/index.ts",
+  "triggers": {
+    // Every 5 mins
+    "crons": ["*/5 * * * *"]
+  },
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true
+    }
+  },
+  "kv_namespaces": [
+    {
+      "binding": "LIPUTON_CF_WORKER_STATE",
+      // This ID needs to be changed per application.
+      "id": "08168b824b4143d9b31c69f5f3aa7b66",
+      "remote": true
+    }
+  ]
+}

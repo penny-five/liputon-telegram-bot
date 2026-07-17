@@ -1,0 +1,6 @@
+pre-commit:
+  jobs:
+    - name: check
+      glob: "*.{ts,json,jsonc}"
+      run: pnpm check:fix {staged_files}
+      stage_fixed: true

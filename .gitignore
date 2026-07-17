@@ -1,0 +1,14 @@
+# Env files
+.env
+
+# Wrangler cache
+.wrangler
+
+# Node modules
+node_modules
+
+# Dist files
+dist
+
+# Generated files
+worker-configuration.d.ts

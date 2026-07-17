@@ -1,0 +1,35 @@
+{
+  "name": "liputon-telegram-bot",
+  "description": "Monitor liputon.fi events and get notified via Telegram whenever new tickets are added for resale.",
+  "private": true,
+  "author": {
+    "name": "penny-five"
+  },
+  "license": "MIT",
+  "main": "dist/index.js",
+  "type": "module",
+  "dependencies": {
+    "axios": "1.18.1",
+    "escape-goat": "4.0.0",
+    "grammy": "1.45.0",
+    "pino": "10.3.1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.4",
+    "@types/node": "26.1.1",
+    "lefthook": "2.1.10",
+    "typescript": "7.0.2",
+    "wrangler": "4.111.0"
+  },
+  "scripts": {
+    "postinstall": "pnpm wrangler:generate-types",
+    "check": "biome check --no-errors-on-unmatched --files-ignore-unknown=true",
+    "check:fix": "biome check --fix --no-errors-on-unmatched --files-ignore-unknown=true",
+    "typecheck": "pnpm wrangler:generate-types && tsc",
+    "wrangler:generate-types": "wrangler types",
+    "wrangler:create-kv-namespace": "wrangler kv namespace create LIPUTON_CF_WORKER_STATE",
+    "wrangler:login": "wrangler login",
+    "wrangler:dev": "wrangler dev",
+    "wrangler:deploy": "wrangler deploy --secrets-file=.env"
+  }
+}
