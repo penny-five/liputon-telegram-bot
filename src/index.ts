@@ -18,7 +18,7 @@ const logger = pino({
 export default {
   async scheduled(_controller, env): Promise<void> {
     const kv = env.LIPUTON_CF_WORKER_STATE;
-    const telegramUserId = parseInt(env.TELEGRAM_USER_ID, 10);
+    const telegramUserID = parseInt(env.TELEGRAM_USER_ID, 10);
     const telegramToken = env.TELEGRAM_BOT_TOKEN;
     const eventID = env.LIPUTON_EVENT_ID;
     const lastProcessedTicketID = parseInt(
@@ -30,8 +30,6 @@ export default {
     const httpClient = axios.create({
       baseURL: "https://api.liputon.fi/v1",
     });
-
-    const bot = new Bot(telegramToken);
 
     const httpResponse = await httpClient.get<EventResponse>(
       `events/${eventID}`,
@@ -66,9 +64,11 @@ export default {
         unprocessedTickets = unprocessedTickets.slice(-1);
       }
 
+      const bot = new Bot(telegramToken);
+
       for (const ticket of unprocessedTickets) {
         await bot.api.sendMessage(
-          telegramUserId,
+          telegramUserID,
           [
             "<b>New ticket added to liputon.fi:</b>",
             htmlEscape(ticket.name),
@@ -84,7 +84,7 @@ export default {
 
       await kv.put(
         "LAST_PROCESSED_TICKET_ID",
-        `${Math.max(...unprocessedTickets.map((t) => t.id))}`,
+        `${Math.max(...unprocessedTickets.map((ticket) => ticket.id))}`,
       );
     }
   },
